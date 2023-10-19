@@ -14,6 +14,8 @@ public class NetworkManagerRTS : NetworkManager
     public override void OnServerAddPlayer(NetworkConnectionToClient conn)
     {
         base.OnServerAddPlayer(conn);
-        Debug.Log($"Server add player, current player numbers on server {numPlayers}");
+        PlayerNetwork player= conn.identity.GetComponent<PlayerNetwork>();
+        player.SetPlayerName($"Player: {numPlayers}");
+        player.SetColor(new Color(Random.Range(0f,1f),Random.Range(0f,1f),Random.Range(0f,1f),255f));
     }
 }
