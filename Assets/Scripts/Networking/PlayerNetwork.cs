@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Mirror;
 using TMPro;
 using UnityEngine;
@@ -27,6 +28,8 @@ public class PlayerNetwork : NetworkBehaviour
     [Command]
     private void CmdSetPlayerName(string newName)
     {
+        if (newName.Contains(" ") || newName.Length > 10)
+            return;
         RpcLogNewName(newName);
         SetPlayerName(newName);
     }
