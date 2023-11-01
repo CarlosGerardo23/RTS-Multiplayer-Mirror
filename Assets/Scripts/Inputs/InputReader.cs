@@ -4,11 +4,12 @@ using UnityEngine.InputSystem;
 using UnityEngine.Events;
 using Unity.VisualScripting;
 
-[CreateAssetMenu(menuName ="Input")]
+[CreateAssetMenu(menuName = "Input")]
 public class InputReader : ScriptableObject, Inputs.IPlayerActions
 {
     #region Player Inputs Events
     public Action OnPlayerSelect = default;
+    public Action OnPlayerDeselect= default;
     #endregion
     private Inputs _inputs;
     private void OnEnable()
@@ -32,6 +33,11 @@ public class InputReader : ScriptableObject, Inputs.IPlayerActions
             OnPlayerSelect();
 
     }
+    public void OnDeselect(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Performed)
+            OnPlayerDeselect();
+    }
     #endregion
 
     #region Enable Inputs
@@ -39,5 +45,7 @@ public class InputReader : ScriptableObject, Inputs.IPlayerActions
     {
         _inputs.Player.Enable();
     }
+
+
     #endregion
 }
